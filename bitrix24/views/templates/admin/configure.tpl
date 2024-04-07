@@ -17,10 +17,10 @@
 * versions in the future. If you wish to customize PrestaShop for your
 * needs please refer to http://www.prestashop.com for more information.
 *
-*  @author    PrestaShop SA <contact@prestashop.com>
-*  @copyright 2007-2021 PrestaShop SA
+*  @author    Rus-Design info@rus-design.com
+*  @copyright 2020 Rus-Design
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
+*  Property of Rus-Design
 *}
 
 <div class="panel">
@@ -31,6 +31,15 @@
 		<div class="col-xs-7 text-left">
 			<h2>{l s='Bitrix24 module integration' mod='bitrix24'}</h2>
 			<h4>{l s='Send data all you need from your shop' mod='bitrix24'}</h4>
+		</div>
+	</div>
+
+	<div class="row moduleconfig-header">
+		<div class="col-xs-5 text-right">
+			<img src="{$module_dir|escape:'html':'UTF-8'}views/img/logo.jpg" />
+		</div>
+		<div class="col-xs-7 text-left">
+			<span>{l s='Other modules ' mod='bitrix24'}</span><a href="https://rus-design.com/en/?{Context::getContext()->shop->getBaseURL(true)}" target="_blank">https://rus-design.com/en/</a>
 		</div>
 	</div>
 

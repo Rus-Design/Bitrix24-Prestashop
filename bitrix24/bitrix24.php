@@ -18,10 +18,10 @@
 * versions in the future. If you wish to customize PrestaShop for your
 * needs please refer to http://www.prestashop.com for more information.
 *
-*  @author    PrestaShop SA <contact@prestashop.com>
-*  @copyright 2007-2021 PrestaShop SA
-*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
+ *  @author    Rus-Design info@rus-design.com
+ *  @copyright 2020 Rus-Design
+ *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ *  Property of Rus-Design
 */
 
 if (!defined('_PS_VERSION_')) {
@@ -43,7 +43,7 @@ class Bitrix24 extends Module
         $this->name = 'bitrix24';
         $this->tab = 'analytics_stats';
         $this->version = '1.1.3';
-        $this->author = 'R-D';
+        $this->author = 'Rus-Design';
         $this->need_instance = 1;
         $this->module_key = '4b9b0d1ab777e68d4740898ec055e9df';
 
@@ -85,11 +85,7 @@ class Bitrix24 extends Module
 
     public function install()
     {
-        include(dirname(__FILE__).'/sql/install.php');
-
         return parent::install() &&
-            $this->registerHook('header') &&
-            $this->registerHook('backOfficeHeader') &&
             $this->registerHook('actionOrderDetail') &&
             $this->registerHook('actionValidateOrder') &&
             $this->registerHook('displayOrderConfirmation');
@@ -101,8 +97,6 @@ class Bitrix24 extends Module
         Configuration::deleteByName('BITRIX24_ADMIN_ID') and
         Configuration::deleteByName('BITRIX24_MANAGER_ID') and
         Configuration::deleteByName('BITRIX24_WEBHOOK_API');
-
-        include(dirname(__FILE__).'/sql/uninstall.php');
 
         return parent::uninstall();
     }
@@ -252,20 +246,6 @@ class Bitrix24 extends Module
         foreach (array_keys($form_values) as $key) {
             Configuration::updateValue($key, Tools::getValue($key));
         }
-    }
-
-    public function hookBackOfficeHeader()
-    {
-        if (Tools::getValue('module_name') == $this->name) {
-            $this->context->controller->addJS($this->_path.'views/js/back.js');
-            $this->context->controller->addCSS($this->_path.'views/css/back.css');
-        }
-    }
-
-    public function hookHeader()
-    {
-        $this->context->controller->addJS($this->_path.'/views/js/front.js');
-        $this->context->controller->addCSS($this->_path.'/views/css/front.css');
     }
 
     public function hookActionOrderDetail()
