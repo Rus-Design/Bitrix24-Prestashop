@@ -80,15 +80,13 @@ class Bitrix24 extends Module
             $this->warning = $this->l('All details must be configured before using this module.');
         }
 
-        $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
     }
 
     public function install()
     {
         return parent::install() &&
-            $this->registerHook('actionOrderDetail') &&
-            $this->registerHook('actionValidateOrder') &&
-            $this->registerHook('displayOrderConfirmation');
+            $this->registerHook('actionValidateOrder');
     }
 
     public function uninstall()
@@ -248,11 +246,6 @@ class Bitrix24 extends Module
         }
     }
 
-    public function hookActionOrderDetail()
-    {
-        //
-    }
-
     public function hookActionValidateOrder($params) //v.1.1.0
     {
         $cookie = $this->context->cookie; //v.1.1.1
@@ -267,8 +260,7 @@ class Bitrix24 extends Module
         $country = $address->country; //v.1.1.1
         $city = $address->city;
         $address1=$address->address1;
-        //$phone=$address->phone_mobile;
-        $phone=$address->phone;
+        $phone=$address->phone?$address->phone:$address->phone_mobile;
         $total = $this->context->cart->getOrderTotal();
         $products = $this->context->cart->getProducts();
         $order = $params['order'];
@@ -402,10 +394,5 @@ class Bitrix24 extends Module
         curl_close($curl);
         $result = json_decode($result, 1); //v.1.1.0
         //// Add product to Bitrix24 End
-    }
-
-    public function hookDisplayOrderConfirmation()
-    {
-        //
     }
 }
